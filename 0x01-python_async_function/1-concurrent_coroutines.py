@@ -1,28 +1,17 @@
-from basic_async_syntax import wait_random
+#!/usr/bin/env python3
+"""
+Let's execute multiple coroutines at the same time with async
+"""
 import asyncio
 from typing import List
+wait_random = __import__('0-basic_async_syntax').wait_random
+
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
     """
-    Create and run n asynchronous tasks that each wait for a random delay up to max_delay.
-
-    Args:
-        n (int): The number of tasks to create.
-        max_delay (int): The maximum delay each task will wait for.
-
-    Returns:
-        List[float]: A list of results from each task, which are the delays (float) for demonstration.
+    wait_n function
     """
-    tasks: List[asyncio.Task] = []
-    
-    for _ in range(n):
-        task = asyncio.create_task(wait_random(max_delay))
-        tasks.append(task)
-        
-    results: List[float] = await asyncio.gather(*tasks)
-    
-    return results
-
-    
-
-
+    list_float: List[float] = []
+    for i in range(n):
+        list_float.append(await wait_random(max_delay))
+    return sorted(list_float)
